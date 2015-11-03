@@ -1,11 +1,11 @@
-FROM ubuntu:latest
+FROM ubuntu:trusty
 
 MAINTAINER Sah Lee <contact@leesah.name>
 
 ENV DEPENDENCIES git-core build-essential autoconf libtool libssl-dev
 ENV BASEDIR /tmp/shadowsocks-libev
 ENV PORT 8338
-ENV VERSION v2.1.4
+ENV VERSION v2.4.1
 
 # Set up building environment
 RUN apt-get update \
