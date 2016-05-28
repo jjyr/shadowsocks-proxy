@@ -1,10 +1,12 @@
-FROM ubuntu:latest
+FROM ubuntu:trusty
 
-MAINTAINER Sah Lee <contact@leesah.name>
+MAINTAINER Hari Jiang <hari.jiang@outlook.com>
 
-ENV DEPENDENCIES git-core build-essential autoconf libtool libssl-dev
+ENV DEPENDENCIES git-core build-essential autoconf libtool libssl-dev polipo
 ENV BASEDIR /tmp/shadowsocks-libev
 ENV PORT 8338
+ENV HTTP_PROXY_PORT 8000
+ENV VERSION v2.4.1
 
 # Set up building environment
 RUN apt-get update \
@@ -13,7 +15,8 @@ RUN apt-get update \
 # Get the latest code, build and install
 RUN git clone https://github.com/shadowsocks/shadowsocks-libev.git $BASEDIR
 WORKDIR $BASEDIR
-RUN ./configure \
+RUN git checkout $VERSION \
+ && ./configure \
  && make \
  && make install
 
@@ -22,8 +25,8 @@ WORKDIR /
 RUN rm -rf $BASEDIR/shadowsocks-libev\
  && apt-get --purge autoremove -y $DEPENDENCIES
 
-# Port in the json config file won't take affect. Instead we'll use 8388.
 EXPOSE $PORT
+EXPOSE $HTTP_PROXY_PORT
 
 # Override the host and port in the config file.
 ADD entrypoint /

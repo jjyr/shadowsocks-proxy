@@ -1,7 +1,7 @@
 #! /bin/bash
 
-IMAGE_NAME="leesah/shadowsocks-libev"
-PORTNUMBER="8338"
+IMAGE_NAME="jjy0/shadowsocks-proxy"
+PORTNUMBER=$PORT
 
 SHADOWSOCKS="/usr/local/bin/ss-server"
 HOST="-s 0.0.0.0"
@@ -92,6 +92,10 @@ if [ -z "$HOST" -o -z "$PORT" -o -z "$PASSWORD" ]; then
   print_usage
   exit 1
 fi
+
+echo "Launching http proxy server..."
+
+polipo proxyAddress=0.0.0.0 socksParentProxy=localhost:$PORTNUMBER
 
 echo "Launching Shadowsocks server..."
 echo "To watch the output, run"
