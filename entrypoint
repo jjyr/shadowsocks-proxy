@@ -95,9 +95,11 @@ fi
 
 echo "Launching http proxy server..."
 
-polipo proxyAddress=0.0.0.0 socksParentProxy=localhost:$PORTNUMBER
+nohup polipo proxyAddress=0.0.0.0 socksParentProxy=localhost:$PORTNUMBER > tmp.log 2>&1 &
 
 echo "Launching Shadowsocks server..."
 echo "To watch the output, run"
 echo "  docker ps -ql | xargs docker logs -f"
-$SHADOWSOCKS $HOST $PORT $PASSWORD $ENCRYPTION $TIMEOUT $UDP_RELAY $VERBOSE $FAST_OPEN $ACL $JSON
+nohup $SHADOWSOCKS $HOST $PORT $PASSWORD $ENCRYPTION $TIMEOUT $UDP_RELAY $VERBOSE $FAST_OPEN $ACL $JSON > tmp.log 2>&1 &
+
+tail -f tmp.log
