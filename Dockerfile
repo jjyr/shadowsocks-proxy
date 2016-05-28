@@ -2,7 +2,7 @@ FROM ubuntu:trusty
 
 MAINTAINER Hari Jiang <hari.jiang@outlook.com>
 
-ENV DEPENDENCIES git-core build-essential autoconf libtool libssl-dev polipo
+ENV DEPENDENCIES git-core build-essential autoconf libtool libssl-dev
 ENV BASEDIR /tmp/shadowsocks-libev
 ENV PORT 8338
 ENV HTTP_PROXY_PORT 8000
@@ -24,6 +24,8 @@ RUN git checkout $VERSION \
 WORKDIR /
 RUN rm -rf $BASEDIR/shadowsocks-libev\
  && apt-get --purge autoremove -y $DEPENDENCIES
+ 
+RUN apt-get install -y polipo
 
 EXPOSE $PORT
 EXPOSE $HTTP_PROXY_PORT

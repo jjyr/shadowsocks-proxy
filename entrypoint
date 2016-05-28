@@ -95,7 +95,7 @@ fi
 
 echo "Launching http proxy server..."
 
-/usr/bin/polipo proxyAddress=0.0.0.0 socksParentProxy=localhost:$PORTNUMBER
+polipo proxyAddress=0.0.0.0 socksParentProxy=localhost:$PORTNUMBER
 
 echo "Launching Shadowsocks server..."
 echo "To watch the output, run"
